@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repo2Drawio"
+  short_description: "Turn codebases into editable architecture diagrams"
+  default_prompt: "Use $repo2drawio to analyze this repository and create an editable architecture diagram."

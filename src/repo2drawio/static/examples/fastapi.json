@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "title": "full-stack-fastapi-template Architecture",
+  "direction": "LR",
+  "sketch": true,
+  "theme": "brand-logos",
+  "groups": [
+    {
+      "id": "runtime",
+      "label": "Application Runtime",
+      "evidence": []
+    },
+    {
+      "id": "data",
+      "label": "Data Stores",
+      "evidence": []
+    }
+  ],
+  "nodes": [
+    {
+      "id": "user",
+      "label": "User",
+      "kind": "actor",
+      "subtitle": "Web / API client",
+      "evidence": [
+        {
+          "path": "README.md",
+          "line": 1,
+          "note": "user-facing application"
+        }
+      ]
+    },
+    {
+      "id": "web-frontend",
+      "label": "Web Application",
+      "kind": "service",
+      "subtitle": "React",
+      "evidence": [
+        {
+          "path": "frontend/package.json",
+          "line": 17,
+          "note": "React application manifest"
+        }
+      ],
+      "parent": "runtime"
+    },
+    {
+      "id": "api-backend",
+      "label": "Backend API",
+      "kind": "service",
+      "subtitle": "FastAPI",
+      "evidence": [
+        {
+          "path": "backend/pyproject.toml",
+          "line": 7,
+          "note": "FastAPI application manifest"
+        },
+        {
+          "path": "backend/app/main.py",
+          "line": 1,
+          "note": "runtime entry point"
+        },
+        {
+          "path": "compose.yml",
+          "line": 49,
+          "note": "Docker Compose deployment"
+        }
+      ],
+      "parent": "runtime"
+    },
+    {
+      "id": "compose-proxy",
+      "label": "Proxy",
+      "kind": "gateway",
+      "subtitle": "traefik",
+      "evidence": [
+        {
+          "path": "compose.yml",
+          "line": 3,
+          "note": "Docker Compose service"
+        }
+      ],
+      "parent": "runtime"
+    },
+    {
+      "id": "compose-db",
+      "label": "PostgreSQL",
+      "kind": "database",
+      "subtitle": "postgres",
+      "evidence": [
+        {
+          "path": "compose.yml",
+          "line": 12,
+          "note": "Docker Compose service"
+        },
+        {
+          "path": "backend/pyproject.toml",
+          "line": 15,
+          "note": "PostgreSQL client dependency"
+        }
+      ],
+      "parent": "data"
+    },
+    {
+      "id": "compose-adminer",
+      "label": "Adminer",
+      "kind": "service",
+      "subtitle": "adminer",
+      "evidence": [
+        {
+          "path": "compose.yml",
+          "line": 34,
+          "note": "Docker Compose service"
+        }
+      ],
+      "parent": "runtime"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-compose-adminer-compose-db",
+      "from": "compose-adminer",
+      "to": "compose-db",
+      "label": "depends on",
+      "evidence": [
+        {
+          "path": "compose.yml",
+          "line": 36,
+          "note": "Docker Compose dependency"
+        }
+      ]
+    },
+    {
+      "id": "edge-api-backend-compose-db",
+      "from": "api-backend",
+      "to": "compose-db",
+      "label": "read / write",
+      "evidence": [
+        {
+          "path": "compose.yml",
+          "line": 36,
+          "note": "Docker Compose dependency"
+        },
+        {
+          "path": "backend/pyproject.toml",
+          "line": 15,
+          "note": "uses PostgreSQL"
+        }
+      ]
+    },
+    {
+      "id": "edge-user-web-frontend",
+      "from": "user",
+      "to": "web-frontend",
+      "label": "access (inferred)",
+      "evidence": [
+        {
+          "path": "README.md",
+          "line": 1,
+          "note": "user entry point"
+        }
+      ]
+    },
+    {
+      "id": "edge-web-frontend-api-backend",
+      "from": "web-frontend",
+      "to": "api-backend",
+      "label": "REST API",
+      "evidence": [
+        {
+          "path": "frontend/openapi-ts.config.ts",
+          "line": 8,
+          "note": "frontend API client"
+        }
+      ]
+    }
+  ]
+}

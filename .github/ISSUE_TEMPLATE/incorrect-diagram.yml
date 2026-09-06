@@ -1,0 +1,23 @@
+name: Incorrect or missing component
+description: Help improve an architecture draft with public source evidence.
+body:
+  - type: input
+    id: repository
+    attributes:
+      label: Public repository URL and commit SHA
+      description: Never paste private source, tokens, or edit links.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should the diagram show?
+      description: Include public source paths or links supporting the expected connection.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What did it show instead?
+    validations:
+      required: true

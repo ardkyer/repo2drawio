@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Turn a public or private GitHub repository into an editable Draw.io architecture diagram." />
+    <title>repo2drawio — Repo in. Editable architecture out.</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="nav shell">
+      <a class="brand" href="/" aria-label="repo2drawio home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>repo<span>2</span>drawio</span>
+      </a>
+      <div class="nav-actions">
+        <a class="github-link" href="https://github.com/ardkyer/repo2drawio" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.22c-3.22.7-3.9-1.36-3.9-1.36-.52-1.34-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.57-.29-5.27-1.28-5.27-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.05 0 0 .97-.31 3.16 1.18A11 11 0 0 1 12 6.14c.98 0 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.63 1.58.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.71 5.38-5.29 5.67.42.36.78 1.06.78 2.14v3.24c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
+          Star on GitHub
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero shell">
+        <div class="eyebrow"><span></span> MIT licensed · No LLM API key</div>
+        <h1>Your repo.<br /><em>Your architecture draft.</em></h1>
+        <p class="lede">Turn a GitHub repository into a Draw.io diagram. Inspect the evidence, move any shape, and download a file you own.</p>
+
+        <form id="repo-form" class="repo-form">
+          <div class="input-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.22c-3.22.7-3.9-1.36-3.9-1.36-.52-1.34-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.57-.29-5.27-1.28-5.27-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.05 0 0 .97-.31 3.16 1.18A11 11 0 0 1 12 6.14c.98 0 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.63 1.58.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.71 5.38-5.29 5.67.42.36.78 1.06.78 2.14v3.24c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
+            <input id="repo-url" name="repo_url" type="url" required autocomplete="url" placeholder="https://github.com/owner/repository" aria-label="GitHub repository URL" />
+            <button id="generate" type="submit">Generate diagram <span>→</span></button>
+          </div>
+          <p id="form-error" class="form-error" role="alert"></p>
+          <details class="style-panel">
+          <summary>Diagram style: Brand Logos</summary>
+          <fieldset class="theme-picker">
+            <legend>Diagram style</legend>
+            <label class="theme-option">
+              <input type="radio" name="theme" value="brand-logos" checked />
+              <span class="theme-card">
+                <span class="theme-preview brand-preview"><i>R</i><b></b><i>aws</i></span>
+                <span><strong>Brand Logos</strong><small>Real tech logos</small></span>
+              </span>
+            </label>
+            <label class="theme-option">
+              <input type="radio" name="theme" value="icon-sketch" />
+              <span class="theme-card">
+                <span class="theme-preview icon-preview"><i>⌘</i><b></b><i>AI</i></span>
+                <span><strong>Icon Sketch</strong><small>Icons · hand-drawn cards</small></span>
+              </span>
+            </label>
+            <label class="theme-option">
+              <input type="radio" name="theme" value="classic" />
+              <span class="theme-card">
+                <span class="theme-preview classic-preview"><i></i><b></b><i></i></span>
+                <span><strong>Classic</strong><small>Clean technical boxes</small></span>
+              </span>
+            </label>
+          </fieldset>
+          </details>
+          <details class="private-panel">
+            <summary><span class="lock-mark" aria-hidden="true">◆</span> Private repository? Add a fine-grained PAT</summary>
+            <div class="pat-guide">
+              <div class="pat-guide-head">
+                <div><strong>Create a PAT in about 1 minute</strong><span>No account-wide access needed</span></div>
+                <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noreferrer">Open GitHub token page ↗</a>
+              </div>
+              <ol>
+                <li><b>1</b><span>Enter a token name such as <code>repo2drawio</code> and choose a short expiration.</span></li>
+                <li><b>2</b><span>Set <strong>Resource owner</strong> to the repository owner. For an organization repo, choose that organization—not your personal account.</span></li>
+                <li><b>3</b><span>Under <strong>Repository access</strong>, choose <strong>Only select repositories</strong> and select the repo you want to analyze.</span></li>
+                <li><b>4</b><span>Under <strong>Repository permissions</strong>, set only <strong>Contents → Read-only</strong>, then click <strong>Generate token</strong>.</span></li>
+                <li><b>5</b><span>Copy the new <code>github_pat_…</code> value and paste it below. Organization approval may be required.</span></li>
+              </ol>
+            </div>
+            <div class="token-row">
+              <div class="token-input">
+                <input id="github-token" type="password" autocomplete="new-password" spellcheck="false" placeholder="github_pat_…" aria-label="Fine-grained GitHub personal access token" />
+                <button id="toggle-token" type="button" aria-label="Show token">Show</button>
+              </div>
+              <span class="token-ready">Then click Generate diagram ↑</span>
+            </div>
+            <p>The token is used once to read selected repository files and is never stored. Revoke it in GitHub after a one-off analysis.</p>
+          </details>
+        </form>
+        <p id="privacy-note" class="privacy-note">Best with web apps and Docker Compose. Private code? Use an instance you trust. Anyone with a diagram link can view it.</p>
+        <div class="instant-examples" aria-label="Instant examples">
+          <span>Or open a real example — no waiting:</span>
+          <a href="/examples/fastapi">FastAPI + React ↗</a>
+          <a href="/examples/voting">Docker voting app ↗</a>
+          <a href="/examples/flower">Celery + Flower ↗</a>
+        </div>
+
+        <div id="progress" class="progress-card" hidden>
+          <div class="progress-head">
+            <div><span class="spinner"></span><strong id="progress-message">Inspecting repository</strong></div>
+            <span id="progress-percent">5%</span>
+          </div>
+          <div class="progress-track"><span id="progress-bar"></span></div>
+          <p>We only read supported text files. Repository code is never executed.</p>
+        </div>
+
+        <div class="trust-row" aria-label="Product features">
+          <span><i>✓</i> No repository code execution</span>
+          <span><i>✓</i> Native .drawio</span>
+          <span><i>✓</i> Shareable editor</span>
+          <span><i>✓</i> Evidence-backed</span>
+        </div>
+      </section>
+
+      <section class="demo shell" aria-label="How it works">
+        <div class="demo-window">
+          <div class="window-bar"><span></span><span></span><span></span><small>architecture.drawio</small></div>
+          <a class="real-preview" href="/examples/fastapi"><img src="/static/examples/fastapi.svg" alt="Unmodified generated architecture draft of the public FastAPI full-stack template" width="1160" height="560" /></a>
+        </div>
+        <p class="example-caption">Actual generated output: <a href="https://github.com/fastapi/full-stack-fastapi-template">FastAPI full-stack template</a>. No manual corrections. <a href="/examples/fastapi">Open and edit →</a></p>
+        <div class="steps">
+          <article><span>01</span><h2>Paste the repo</h2><p>No local clone or CLI required.</p></article>
+          <article><span>02</span><h2>We inspect the evidence</h2><p>Manifests, services, dependencies, and infrastructure.</p></article>
+          <article><span>03</span><h2>Edit every shape</h2><p>Move, relabel, restyle, share, or download in Draw.io.</p></article>
+        </div>
+        <section class="limitations" aria-labelledby="limits-title">
+          <h2 id="limits-title">A useful first draft, with limits.</h2>
+          <p>Detection uses manifests, Compose files, and selected source patterns. Dependencies and inferred connections are not a complete call graph. Review every diagram before using it as documentation.</p>
+          <p>Works best with supported web stacks and Compose services. Libraries, mixed example collections, and unfamiliar domain logic can produce sparse or misleading results. Compose override files and runtime traffic are not resolved.</p>
+          <a href="https://github.com/ardkyer/repo2drawio/issues/new">Report a missing component ↗</a>
+        </section>
+      </section>
+    </main>
+    <footer class="shell"><span>Built for architecture that changes.</span><a href="https://github.com/ardkyer/repo2drawio">MIT licensed</a></footer>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

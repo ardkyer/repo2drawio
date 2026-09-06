@@ -1,0 +1,32 @@
+[
+  {
+    "id": "fastapi",
+    "repository": "fastapi/full-stack-fastapi-template",
+    "title": "FastAPI full-stack template",
+    "commit": "cb740b656d7a0a6c5e12c7bf8e50343ec94ee9c7",
+    "note": "Dependency-level draft. Proxy routing and Compose overrides are not resolved.",
+    "nodes": 6,
+    "edges": 4,
+    "manually_corrected": false
+  },
+  {
+    "id": "voting",
+    "repository": "dockersamples/example-voting-app",
+    "title": "Docker voting app",
+    "commit": "63e9150ca17af4ed05880d4245e486481f73fcb4",
+    "note": "Compose dependencies, not a message-flow trace. Includes the optional seed profile.",
+    "nodes": 7,
+    "edges": 7,
+    "manually_corrected": false
+  },
+  {
+    "id": "flower",
+    "repository": "mher/flower",
+    "title": "Celery monitoring with Flower",
+    "commit": "e6cf8ef78776098bf8d3f1674056fc00dd62e388",
+    "note": "Compose dependencies. Prometheus scraping and Celery message flow are not inferred.",
+    "nodes": 6,
+    "edges": 7,
+    "manually_corrected": false
+  }
+]

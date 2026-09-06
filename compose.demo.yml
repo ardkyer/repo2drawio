@@ -1,0 +1,18 @@
+# Deployment override: docker compose -f docker-compose.yml -f compose.demo.yml up --build -d
+# Terminate HTTPS at a trusted provider proxy. Use a fresh volume for a public demo.
+services:
+  repo2drawio:
+    environment:
+      REPO2DRAWIO_ALLOW_PRIVATE: "false"
+      REPO2DRAWIO_WORKERS: "2"
+      REPO2DRAWIO_MAX_PENDING: "8"
+      REPO2DRAWIO_MAX_JOBS: "500"
+      REPO2DRAWIO_RATE_LIMIT: "3"
+    mem_limit: 1g
+    cpus: 1.0
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s

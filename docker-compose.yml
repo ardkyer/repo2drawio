@@ -1,0 +1,11 @@
+services:
+  repo2drawio:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - repo2drawio-data:/data
+    restart: unless-stopped
+
+volumes:
+  repo2drawio-data:

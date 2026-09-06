@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edit architecture — repo2drawio</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body class="editor-body">
+    <header class="editor-nav">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>repo<span>2</span>drawio</span></a>
+      <div class="editor-title"><strong id="repo-name">Architecture</strong><span id="save-state">Loading editor…</span></div>
+      <div class="editor-actions">
+        <a class="github-link" href="https://github.com/ardkyer/repo2drawio" target="_blank" rel="noreferrer">Star on GitHub ↗</a>
+        <button id="copy-view-link" class="secondary-button" type="button">Copy view link</button>
+        <button id="copy-link" class="secondary-button" type="button">Copy edit link</button>
+        <a id="download-link" class="primary-button" href="#">Download .drawio</a>
+      </div>
+    </header>
+    <main class="editor-main">
+      <div id="editor-error" class="editor-error" hidden></div>
+      <div id="example-notice" class="example-notice" hidden></div>
+      <iframe id="drawio-frame" title="Draw.io architecture editor" allow="clipboard-read; clipboard-write" referrerpolicy="no-referrer"></iframe>
+    </main>
+    <script src="/static/editor.js" defer></script>
+  </body>
+</html>

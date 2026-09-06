@@ -1,0 +1,12 @@
+.git
+.venv
+.env
+.repo2drawio-data
+.launch-audit
+examples
+launch
+build
+dist
+**/__pycache__
+**/*.pyc
+**/*.egg-info

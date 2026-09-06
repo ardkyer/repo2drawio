@@ -1,0 +1,197 @@
+{
+  "version": 1,
+  "title": "flower Architecture",
+  "direction": "LR",
+  "sketch": true,
+  "theme": "brand-logos",
+  "groups": [
+    {
+      "id": "runtime",
+      "label": "Application Runtime",
+      "evidence": []
+    },
+    {
+      "id": "data",
+      "label": "Data Stores",
+      "evidence": []
+    }
+  ],
+  "nodes": [
+    {
+      "id": "user",
+      "label": "User",
+      "kind": "actor",
+      "subtitle": "Web / API client",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 1,
+          "note": "user-facing application"
+        }
+      ]
+    },
+    {
+      "id": "compose-redis",
+      "label": "Redis",
+      "kind": "queue",
+      "subtitle": "redis",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 2,
+          "note": "Docker Compose service"
+        }
+      ],
+      "parent": "data"
+    },
+    {
+      "id": "compose-prometheus",
+      "label": "Prometheus",
+      "kind": "service",
+      "subtitle": "prom/prometheus",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 6,
+          "note": "Docker Compose service"
+        }
+      ],
+      "parent": "runtime"
+    },
+    {
+      "id": "compose-grafana",
+      "label": "Grafana",
+      "kind": "service",
+      "subtitle": "grafana/grafana",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 12,
+          "note": "Docker Compose service"
+        }
+      ],
+      "parent": "runtime"
+    },
+    {
+      "id": "compose-worker",
+      "label": "Worker",
+      "kind": "service",
+      "subtitle": "Docker service",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 26,
+          "note": "Docker Compose service"
+        }
+      ],
+      "parent": "runtime"
+    },
+    {
+      "id": "compose-flower",
+      "label": "Flower",
+      "kind": "service",
+      "subtitle": "Docker service",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 22,
+          "note": "Docker Compose service"
+        }
+      ],
+      "parent": "runtime"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-compose-grafana-compose-prometheus",
+      "from": "compose-grafana",
+      "to": "compose-prometheus",
+      "label": "depends on",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 14,
+          "note": "Docker Compose dependency"
+        }
+      ]
+    },
+    {
+      "id": "edge-compose-worker-compose-redis",
+      "from": "compose-worker",
+      "to": "compose-redis",
+      "label": "depends on",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 14,
+          "note": "Docker Compose dependency"
+        }
+      ]
+    },
+    {
+      "id": "edge-compose-flower-compose-worker",
+      "from": "compose-flower",
+      "to": "compose-worker",
+      "label": "depends on",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 14,
+          "note": "Docker Compose dependency"
+        }
+      ]
+    },
+    {
+      "id": "edge-compose-flower-compose-redis",
+      "from": "compose-flower",
+      "to": "compose-redis",
+      "label": "depends on",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 14,
+          "note": "Docker Compose dependency"
+        }
+      ]
+    },
+    {
+      "id": "edge-user-compose-prometheus",
+      "from": "user",
+      "to": "compose-prometheus",
+      "label": "access (inferred)",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 1,
+          "note": "user entry point"
+        }
+      ]
+    },
+    {
+      "id": "edge-user-compose-grafana",
+      "from": "user",
+      "to": "compose-grafana",
+      "label": "published port",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 4,
+          "note": "Compose publishes a port; protocol and audience need review"
+        }
+      ]
+    },
+    {
+      "id": "edge-user-compose-flower",
+      "from": "user",
+      "to": "compose-flower",
+      "label": "published port",
+      "evidence": [
+        {
+          "path": "docker-compose.yml",
+          "line": 4,
+          "note": "Compose publishes a port; protocol and audience need review"
+        }
+      ]
+    }
+  ]
+}
