@@ -5,6 +5,9 @@
 Paste a repository URL, inspect inferred components and their source evidence,
 then move, relabel, reconnect, and download native Draw.io shapes. MIT licensed.
 
+**[Try the live demo](https://repo2drawio-production.up.railway.app/)** ·
+[Open an instant example](https://repo2drawio-production.up.railway.app/examples/fastapi)
+
 ![Open an instant example and edit its label in Draw.io](src/repo2drawio/static/examples/demo.gif)
 
 *A 20-second sequence of three actual UI captures: home, example, edited local copy.
@@ -27,8 +30,9 @@ Open [localhost:8000](http://localhost:8000). Paste a public repository URL, or 
 one of the three instant examples. Examples need no GitHub access or sign-up.
 Edit an example and download your own copy; the original stays unchanged.
 
-A public hosted URL is not available yet. Local instructions are the working entry
-point until deployment is complete.
+The [hosted demo](https://repo2drawio-production.up.railway.app/) accepts public
+repositories only, with limited capacity. Self-host for private repositories.
+For the small hosted setup, see [Railway deployment notes](docs/railway.md).
 
 | Real public example | What the draft captures | What to review |
 | --- | --- | --- |

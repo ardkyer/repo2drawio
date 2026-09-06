@@ -1,5 +1,6 @@
 """Exercise a launch instance; use only a public example, never print edit tokens."""
 import argparse
+import hashlib
 import json
 import time
 from urllib.request import Request, urlopen
@@ -49,4 +50,4 @@ if __name__ == "__main__":
     else:
         raise AssertionError("Unauthenticated write succeeded")
     assert b"svg" in call(path + "/preview.svg")
-    print(json.dumps({"status": "passed", "version": health["version"], "repository": "mher/flower", "seconds": round(time.monotonic()-start, 2), "checks": ["generate", "poll", "download mxfile", "authorized save", "saved download", "reject unauthorized save", "SVG preview"]}))
+    print(json.dumps({"status": "passed", "version": health["version"], "repository": "mher/flower", "job_id": job["id"], "download_sha256": hashlib.sha256(edited.encode()).hexdigest(), "seconds": round(time.monotonic()-start, 2), "checks": ["generate", "poll", "download mxfile", "authorized save", "saved download", "reject unauthorized save", "SVG preview"]}))
