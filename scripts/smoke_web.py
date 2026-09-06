@@ -1,4 +1,5 @@
-"""Exercise a local launch instance; use only a public example, never print edit tokens."""
+"""Exercise a launch instance; use only a public example, never print edit tokens."""
+import argparse
 import json
 import time
 from urllib.request import Request, urlopen
@@ -18,6 +19,10 @@ def call(path, payload=None, method=None, token=None):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--base-url", default=BASE)
+    args = parser.parse_args()
+    BASE = args.base_url.rstrip("/")
     health = json.loads(call("/healthz"))
     assert health["version"] == "0.12.0"
     start = time.monotonic()
